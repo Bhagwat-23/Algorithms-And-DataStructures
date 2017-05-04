@@ -1,2 +1,1 @@
-# Algorithms-And-DataStructures-Tree
-Algorithms and Data Structures.
+This section contains Algorithms and data structures.
