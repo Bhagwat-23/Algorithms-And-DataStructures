@@ -4,6 +4,8 @@
 #define MAX 1001
 using namespace std;
 template<class T>
+
+//Generic Stack which can be operated with any data types.
 class Stack
 {
 private:
@@ -52,8 +54,6 @@ struct Tree
 	struct Tree *left;
 	struct Tree *right;
 };
-struct Tree *ConvertToDll(struct Tree *root);
-struct Tree *ConvertToDllHelper(struct Tree *root);
 struct Tree *addNodes(int data)
 {
 	struct Tree *node = (struct Tree*)malloc(sizeof(struct Tree));
@@ -83,14 +83,17 @@ void PostOrder(struct Tree *root)
 	cout<<root->data<<" ";
 }
 
+//Iterative method of PreOrder traversal.
 void PreOrderIterativeTraversal(struct Tree *root)
 {
+	//If root is null , that means Tree has no nodes.
 	if(root==NULL)
 		return;
 	bool isCompleted = false;
 	Stack<struct Tree *> S;
 	struct Tree *temp = root;
-	S.Push(temp);
+	//Push the root node of tree.
+	S.Push(temp); 
 	while(!isCompleted)
 	{
 		if(S.isEmply()==true)
@@ -99,18 +102,23 @@ void PreOrderIterativeTraversal(struct Tree *root)
 		}
 		else
 		{
+			//Process the popped node.
 			temp = S.Pop();
 			cout<<temp->data<<" ";
+			//Push the right child if any.
 			if(temp->right!=NULL)
 				S.Push(temp->right);
+			//Push the left child if any.
 			if(temp->left!=NULL)
 				S.Push(temp->left);
 		}
 	}
 }
 
+//Iterative method of Inorder traversal.
 void InOrderIterativeTraversal(struct Tree *root)
 {
+	//If root is null , that means Tree has no nodes.
 	if(root==NULL)
 		return;
 	bool isCompleted = false;
@@ -118,6 +126,7 @@ void InOrderIterativeTraversal(struct Tree *root)
 	struct Tree *temp = root;
 	while(!isCompleted)
 	{
+		//Push all the left childrens in the stack
 		if(temp!=NULL)
 		{
 			S.Push(temp);
@@ -132,7 +141,9 @@ void InOrderIterativeTraversal(struct Tree *root)
 			else
 			{
 				temp = S.Pop();
+				//Process the popped node.
 				cout<<temp->data<<" ";
+				//If Tree node has any right chilren(s) then Push it into the stack.
 				temp=temp->right;
 			}
 		}
@@ -140,6 +151,7 @@ void InOrderIterativeTraversal(struct Tree *root)
 }
 void PostOrderIterativeTraversal(struct Tree *root)
 {
+	//If root is null , that means Tree has no nodes.
 	if(root==NULL)
 		return;
 	bool isCompleted = false;
@@ -148,6 +160,7 @@ void PostOrderIterativeTraversal(struct Tree *root)
 	struct Tree *curr=NULL;
 	while(!isCompleted)
 	{
+		//Push the Tree right child and then root in the stack.
 		while (temp)
 		{
 			if(temp->right)
@@ -159,6 +172,8 @@ void PostOrderIterativeTraversal(struct Tree *root)
 			isCompleted=true;
 		else
 		{
+			//If Tree has any right child , which is not yet processed , 
+			//Then push the right child into the stack.
 			temp=S.Pop();
 			curr=S.Peek();
 			if(temp->right && curr==temp->right)
@@ -175,6 +190,7 @@ void PostOrderIterativeTraversal(struct Tree *root)
 		}
 	}
 }
+
 int main()
 {
 	struct Tree *root=addNodes(1);
